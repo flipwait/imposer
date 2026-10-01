@@ -5,29 +5,110 @@ import { useState, useRef, useCallback } from "react";
 // ========== WORD BANKS ==========
 const WORD_BANKS: Record<string, string[]> = {
   Naruto: [
-    "Naruto", "Sasuke", "Sakura", "Kakashi", "Itachi", "Jiraiya", "Tsunade",
-    "Gaara", "Shikamaru", "Hinata", "Neji", "Rock Lee", "Orochimaru", "Madara",
-    "Minato", "Kushina", "Obito", "Pain", "Konohamaru", "Shino", "Kiba", "Choji",
+    // Team 7 & Konoha
+    "Naruto Uzumaki", "Sasuke Uchiha", "Sakura Haruno", "Kakashi Hatake", "Sai", "Yamato",
+    "Sakura", "Naruto", "Sasuke", "Kakashi",
+    // Team 8, 10, Guy
+    "Hinata Hyuga", "Kiba Inuzuka", "Shino Aburame", "Akamaru", "Kurenai Yuhi",
+    "Shikamaru Nara", "Ino Yamanaka", "Choji Akimichi", "Asuma Sarutobi",
+    "Rock Lee", "Neji Hyuga", "Tenten", "Might Guy",
+    // Sannin & Hokage
+    "Jiraiya", "Tsunade", "Orochimaru", "Hiruzen Sarutobi", "Minato Namikaze",
+    "Kushina Uzumaki", "Hashirama Senju", "Tobirama Senju", "Danzo Shimura",
+    // Uchiha & others
+    "Itachi Uchiha", "Obito Uchiha", "Madara Uchiha", "Shisui Uchiha", "Fugaku Uchiha",
+    "Mikoto Uchiha", "Izuna Uchiha", "Kagami Uchiha",
+    // Sand
+    "Gaara", "Temari", "Kankuro", "Baki", "Chiyo", "Rasa", "Yashamaru",
+    // Akatsuki
+    "Pain", "Nagato", "Konan", "Itachi", "Kisame Hoshigaki", "Deidara", "Sasori",
+    "Hidan", "Kakuzu", "Zetsu", "Tobi", "Black Zetsu", "White Zetsu",
+    // Taka / Hebi
+    "Karin", "Suigetsu Hozuki", "Jugo", "Kimimaro",
+    // Cloud / Mist / Stone
+    "Killer Bee", "A (Raikage)", "Darui", "Omoi", "Karui", "Samui", "Yugito Nii",
+    "Mei Terumi", "Chojuro", "Ao", "Zabuza Momochi", "Haku", "Yagura",
+    "Onoki", "Kurotsuchi", "Akatsuchi", "Kitsuchi",
+    // Sound / Otogakure
+    "Kabuto Yakushi", "Tayuya", "Kidomaru", "Sakon", "Ukon", "Jirobo", "Dosu Kinuta",
+    // Other notable
+    "Iruka Umino", "Konohamaru Sarutobi", "Ebisu", "Anko Mitarashi", "Shizune",
+    "Inoichi Yamanaka", "Shikaku Nara", "Choza Akimichi", "Hiashi Hyuga", "Hanabi Hyuga",
+    "Hizashi Hyuga", "Mito Uzumaki", "Ashura Otsutsuki", "Indra Otsutsuki",
+    "Kaguya Otsutsuki", "Hagoromo Otsutsuki", "Hamura Otsutsuki",
+    "Rin Nohara", "Gai", "Lee", "Neji", "Hinata", "Shikamaru", "Ino", "Choji",
+    "Kiba", "Shino", "Temari", "Kankuro", "Bee", "Ay", "Mei", "Onoki",
+    "Jiraiya", "Tsunade", "Orochimaru", "Kabuto", "Sasori", "Deidara", "Kisame",
+    "Hidan", "Kakuzu", "Konan", "Nagato", "Yahiko", "Zetsu", "Madara", "Obito",
+    "Hashirama", "Tobirama", "Hiruzen", "Minato", "Kushina", "Danzo", "Yamato", "Sai",
   ],
   "Hunter x Hunter": [
-    "Gon", "Killua", "Kurapika", "Leorio", "Hisoka", "Chrollo", "Meruem",
-    "Netero", "Ging", "Bisky", "Knuckle", "Morel", "Kite", "Illumi",
-    "Feitan", "Phinks", "Shalnark", "Pakunoda", "Uvogin", "Nobunaga",
+    // Main
+    "Gon Freecss", "Killua Zoldyck", "Kurapika", "Leorio Paradinight", "Hisoka Morow",
+    "Gon", "Killua", "Kurapika", "Leorio", "Hisoka",
+    // Zoldyck
+    "Illumi Zoldyck", "Milluki Zoldyck", "Alluka Zoldyck", "Kalluto Zoldyck",
+    "Silva Zoldyck", "Kikyo Zoldyck", "Zeno Zoldyck", "Maha Zoldyck", "Gotoh", "Canary",
+    // Phantom Troupe
+    "Chrollo Lucilfer", "Feitan Portor", "Phinks Magcub", "Shalnark", "Pakunoda",
+    "Uvogin", "Nobunaga Hazama", "Machi Komacine", "Franklin", "Bonolenov",
+    "Shizuku", "Kortopi", "Omokage", "Chrollo", "Feitan", "Phinks", "Machi",
+    // Hunters & Association
+    "Isaac Netero", "Ging Freecss", "Biscuit Krueger", "Kite", "Knuckle Bine",
+    "Morel Mackernasey", "Knov", "Shoot McMahon", "Palm Siberia", "Meleoron",
+    "Netero", "Ging", "Bisky", "Knuckle", "Morel", "Knov", "Shoot", "Palm",
+    // Chimera Ants
+    "Meruem", "Neferpitou", "Shaiapouf", "Menthuthuyoupi", "Colt", "Reina",
+    "Ikalgo", "Welfin", "Bloster", "Pell", "Rammot", "Hina", "Zazan",
+    "Meruem", "Pitou", "Pouf", "Youpi",
+    // Others
+    "Pariston Hill", "Cheadle Yorkshire", "Mizaistom Nana", "Saiyu", "Botobai",
+    "Beans", "Wing", "Zushi", "Hanzo", "Pokkle", "Ponzu", "Genthru", "Assam",
+    "Tsezguerra", "Goreinu", "Razore", "Eta", "Senritsu", "Melody", "Basho",
+    "Izunavi", "Light Nostrade", "Neon Nostrade", "Dalzollene", "Squala",
+    "Baise", "Eliza", "Linssen", "Tocino", "Shachmono Tocino",
   ],
   "Attack on Titan": [
-    "Eren", "Mikasa", "Armin", "Levi", "Erwin", "Hange", "Jean", "Connie",
-    "Sasha", "Historia", "Reiner", "Bertholdt", "Annie", "Zeke", "Ymir",
-    "Falco", "Gabi", "Pixis", "Kenny", "Grisha",
+    // Main
+    "Eren Yeager", "Mikasa Ackerman", "Armin Arlert", "Levi Ackerman", "Erwin Smith",
+    "Hange Zoe", "Jean Kirstein", "Connie Springer", "Sasha Blouse", "Historia Reiss",
+    "Eren", "Mikasa", "Armin", "Levi", "Erwin", "Hange", "Jean", "Connie", "Sasha", "Historia",
+    // Warriors
+    "Reiner Braun", "Bertholdt Hoover", "Annie Leonhart", "Zeke Yeager", "Pieck Finger",
+    "Porco Galliard", "Marcel Galliard", "Falco Grice", "Gabi Braun", "Colt Grice",
+    "Reiner", "Bertholdt", "Annie", "Zeke", "Pieck", "Falco", "Gabi",
+    // Military & others
+    "Kenny Ackerman", "Uri Reiss", "Frieda Reiss", "Rod Reiss", "Grisha Yeager",
+    "Carla Yeager", "Hannes", "Darius Zackly", "Nile Dok", "Dot Pixis",
+    "Rico Brzenska", "Ian Dietrich", "Mitabi Jarnach", "Marlo Freudenberg", "Hitch Dreyse",
+    "Ymir", "Krista Lenz", "Marco Bott", "Thomas Wagner", "Mina Carolina",
+    "Samuel Linke-Jackson", "Daz", "Floch Forster", "Onyankopon", "Yelena",
+    "Keith Shadis", "Kitz Weilman", "Anka Rheinberger", "Gustav", "Moblit Berner",
+    "Eld Jinn", "Gunther Schultz", "Oruo Bozad", "Petra Ral", "Nifa",
+    "Goggles", "Lauda", "Ramon", "Varis", "Lobov",
+    "Kenny", "Grisha", "Pixis", "Zackly", "Shadis", "Floch", "Yelena", "Onyankopon",
   ],
   SpongeBob: [
+    "SpongeBob SquarePants", "Patrick Star", "Squidward Tentacles", "Mr. Krabs",
+    "Plankton", "Sandy Cheeks", "Gary the Snail", "Mrs. Puff", "Pearl Krabs",
+    "Larry the Lobster", "Mermaid Man", "Barnacle Boy", "Karen Plankton",
+    "Bubble Bass", "Man Ray", "Flying Dutchman", "Dirty Bubble", "Potty the Parrot",
+    "Patchy the Pirate", "Potty", "King Neptune", "Princess Mindy", "Triton",
+    "Squilliam Fancyson", "Old Man Jenkins", "Mrs. Tentacles", "Mama Krabs",
+    "Betsy Krabs", "Grandma SquarePants", "Harold SquarePants", "Margaret SquarePants",
+    "BlackJack SquarePants", "Stanley S. SquarePants", "Cousin Stanley",
+    "Bubble Buddy", "Nocturnal Diner Guy", "Fred", "Tom", "Nancy Suzy Fish",
+    "Scooter", "Nat Peterson", "Harold", "Tina", "Evelyn", "Frank",
     "SpongeBob", "Patrick", "Squidward", "Mr. Krabs", "Plankton", "Sandy",
-    "Gary", "Mrs. Puff", "Pearl", "Larry the Lobster", "Mermaid Man",
-    "Barnacle Boy", "Karen", "Bubble Bass", "Man Ray", "Flying Dutchman",
+    "Gary", "Mrs. Puff", "Pearl", "Larry", "Mermaid Man", "Barnacle Boy",
+    "Karen", "Bubble Bass", "Man Ray", "Flying Dutchman", "King Neptune",
   ],
   Mario: [
-    "Mario", "Luigi", "Peach", "Bowser", "Yoshi", "Toad", "Daisy",
-    "Wario", "Waluigi", "Rosalina", "Donkey Kong", "Diddy Kong",
-    "Birdo", "Boo", "Koopa Troopa", "Goomba", "Princess Peach", "Toadette",
+    "Mario", "Luigi", "Princess Peach", "Bowser", "Yoshi", "Toad",
+    "Princess Daisy", "Wario", "Waluigi", "Rosalina", "Donkey Kong",
+    "Diddy Kong", "Birdo", "Toadette", "Bowser Jr.", "Kamek",
+    "King Boo", "Pauline", "Captain Toad", "Nabbit", "Toadsworth",
+    "Peach", "Daisy", "DK", "Boo",
   ],
 };
 
