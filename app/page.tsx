@@ -84,7 +84,7 @@ const AVATARS = ["🦊", "⚡", "🗡️", "🧽", "🍄", "🔥", "👻", "🐉
 
 // Character-specific clue data for "Impress the Imposter" mode
 // Each entry: [easy clues..., medium..., hard...] — progressive from broad to specific
-const CHARACTER_CLUES: Record<string, Record<string, string[]>> = {
+const CHARACTER_CLUES: Record<string, string[]> = {
   // --- NARUTO ---
   "Naruto Uzumaki": ["Blond hair + whisker marks", "Dreams of becoming Hokage", "Has a tailed beast sealed inside", "Says 'Believe it!' / 'Dattebayo'", "Son of the 4th Hokage"],
   "Sasuke Uchiha": ["Last surviving Uchiha (for a long time)", "Has a cursed seal / Sharingan", "Wants revenge on his brother", "Rival of the main character", "Joined the Sound / Taka"],
