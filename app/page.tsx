@@ -202,7 +202,7 @@ function generateClues(character: string, category: string, difficulty: "easy" |
     } else {
       // Hard: start vague
       return [
-        \`Category: \${category}\`,
+        `Category: ${category}`,
         specific[0],
         specific[1],
         specific[2],
@@ -212,7 +212,7 @@ function generateClues(character: string, category: string, difficulty: "easy" |
   }
   // Fallback for characters without custom clues
   return [
-    \`This character is from \${category}.\`,
+    `This character is from ${category}.`,
     "They appear in major story arcs.",
     "They have a distinctive look or ability.",
     "Fans of the series would recognize the name.",
